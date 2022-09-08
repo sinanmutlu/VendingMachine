@@ -2,11 +2,9 @@ package com.sinanmutlu.vendingmachine.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -21,7 +19,7 @@ public class User {
     private String username;
     private String password;
     private int deposit;
-    @OneToMany
-    private List<Role> role; //can be enum
+    @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    private Set<Role> role; //can be enum
 
 }

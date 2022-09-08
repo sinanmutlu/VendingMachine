@@ -4,6 +4,7 @@ import com.sinanmutlu.vendingmachine.entity.Role;
 import lombok.*;
 
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,5 +17,5 @@ public class UserReqDto {
     private String username;
     private String password;
     private int deposit;
-    private List<Role> role;
+    private Set<Role> role;
 }

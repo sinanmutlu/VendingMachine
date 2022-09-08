@@ -20,7 +20,8 @@ public enum ErrorCode {
     USER_NOT_FOUND(903, "User was not found", HttpStatus.BAD_REQUEST),
     INVALID_COIN_TYPE(701, "Coin type should be one of (5, 10, 20, 50, 100)", HttpStatus.BAD_REQUEST),
     INVALID_COIN_NUMBER(702, "Coin number should be more than 0", HttpStatus.BAD_REQUEST),
-    NOT_ENOUGH_DEPOSIT(703, "Not enough balance", HttpStatus.BAD_REQUEST);
+    NOT_ENOUGH_DEPOSIT(703, "Not enough balance", HttpStatus.BAD_REQUEST),
+    INVALID_CREDENTIALS(601, "Username or password is invalid", HttpStatus.BAD_REQUEST);
 
     private ErrorCode(int code, String msg, HttpStatus httpStatus) {
         this.errorCode = code;

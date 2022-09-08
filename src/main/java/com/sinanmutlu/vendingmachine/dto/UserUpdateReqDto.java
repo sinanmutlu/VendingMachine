@@ -4,6 +4,7 @@ import com.sinanmutlu.vendingmachine.entity.Role;
 import lombok.*;
 
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,5 +16,5 @@ public class UserUpdateReqDto {
 
     private Long id;
     private String password;
-    private List<Role> role;
+    private Set<Role> role;
 }
