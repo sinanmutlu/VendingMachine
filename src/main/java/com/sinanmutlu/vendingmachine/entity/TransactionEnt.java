@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @Builder
-public class Transaction {
+public class TransactionEnt {
     @Id
     @GeneratedValue
     private Long id;

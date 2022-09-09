@@ -16,5 +16,5 @@ public class UserUpdateReqDto {
 
     private Long id;
     private String password;
-    private Set<Role> role;
+    private String role;
 }

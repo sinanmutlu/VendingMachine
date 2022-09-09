@@ -19,7 +19,6 @@ public class UserEnt {
     private String username;
     private String password;
     private int deposit;
-    @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    private Set<Role> role; //can be enum
+    private String role;
 
 }

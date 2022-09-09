@@ -1,12 +1,11 @@
 package com.sinanmutlu.vendingmachine.auth;
 
-import com.sinanmutlu.vendingmachine.entity.Role;
+
 import com.sinanmutlu.vendingmachine.entity.UserEnt;
 import com.sinanmutlu.vendingmachine.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,15 +28,15 @@ public class UserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Optional<UserEnt> userEnt = userRepository.findByUsername(s);
         logger.info("input: " + s);
-        //return new User("foo", "foo1", new ArrayList<>());
+//        return new User("foo", "foo1", new ArrayList<>());
 
         List<String> roleNames = new ArrayList<>();
         if(userEnt.isPresent()){
             logger.info("*********");
             List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
-            for(Role role: userEnt.get().getRole()){
-                roleNames.add(role.getName());
+            for(String role: userEnt.get().getRole().split(",")){
+                roleNames.add(role);
             }
             roleNames.stream().forEach(authority -> authorities.add(new SimpleGrantedAuthority(authority)));
 

@@ -29,6 +29,15 @@ public class ProductServiceImpl implements ProductService{
     private final ProductMapper productMapper;
     @Override
     public List<ProductDto> getAllProducts() {
+
+        Product product = new Product();
+        product.setProductName("su1");
+        product.setAmountAvailable(100);
+        product.setCost(10);
+        product.setSellerId(1L);
+
+        productRepository.save(product);
+
         return productMapper.toDtos(productRepository.findAll());
     }
 

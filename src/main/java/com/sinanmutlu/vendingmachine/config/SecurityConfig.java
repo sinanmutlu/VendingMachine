@@ -35,14 +35,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     //    http.authorizeRequests().anyRequest().fullyAuthenticated().and().httpBasic();
-        http.authorizeRequests().anyRequest().permitAll();
-    //   http.authorizeRequests()
+    //    http.authorizeRequests().anyRequest().permitAll();
+       http.authorizeRequests()
     //           .antMatchers(HttpMethod.POST,"/user/add").permitAll()
-    //           .antMatchers(HttpMethod.POST, "/authenticate").permitAll()
-    //           .antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
-    //           .anyRequest().fullyAuthenticated()
-    //           .and()
-    //           .httpBasic();
+               .antMatchers(HttpMethod.POST, "/login/authenticate").permitAll()
+               .antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
+               .antMatchers(HttpMethod.POST, "/swagger-ui.html").permitAll()
+               //.antMatchers(HttpMethod.POST, "/products/**").permitAll()
+               .antMatchers(HttpMethod.GET, "/products/**").permitAll()
+               .antMatchers(HttpMethod.GET, "/user/**").permitAll()
+               .antMatchers(HttpMethod.POST, "/user/**").permitAll()
+               .antMatchers(HttpMethod.GET, "/transaction/**").permitAll()
+               .antMatchers(HttpMethod.POST, "/transaction/**").permitAll()
+               .anyRequest().fullyAuthenticated()
+               .and()
+               .httpBasic();
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.cors();
@@ -51,8 +58,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(HttpMethod.POST, "/authenticate")
-                .antMatchers(HttpMethod.GET, "/swagger-ui.html");
+        web.ignoring().antMatchers(HttpMethod.POST, "/login/authenticate")
+                .antMatchers(HttpMethod.POST, "/products/**");
+                //.antMatchers(HttpMethod.GET, "/swagger-ui.html");
     }
 
     @Bean

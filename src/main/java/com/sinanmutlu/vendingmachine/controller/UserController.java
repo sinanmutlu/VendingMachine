@@ -57,7 +57,7 @@ public class UserController {
     }
 
     @GetMapping("/insertRoles")
-    public ResponseEntity<List<Role>> insertRoles() {
+    public ResponseEntity<String> insertRoles() {
 
         return ResponseEntity.ok(userService.insertRoles());
     }

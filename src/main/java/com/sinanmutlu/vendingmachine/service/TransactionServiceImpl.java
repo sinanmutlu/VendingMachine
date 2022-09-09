@@ -3,10 +3,11 @@ package com.sinanmutlu.vendingmachine.service;
 
 import com.sinanmutlu.vendingmachine.dto.*;
 import com.sinanmutlu.vendingmachine.entity.Product;
-import com.sinanmutlu.vendingmachine.entity.Transaction;
+import com.sinanmutlu.vendingmachine.entity.TransactionEnt;
 import com.sinanmutlu.vendingmachine.entity.UserEnt;
 import com.sinanmutlu.vendingmachine.exception.ErrorCode;
 import com.sinanmutlu.vendingmachine.exception.TransactionException;
+import com.sinanmutlu.vendingmachine.exception.UserException;
 import com.sinanmutlu.vendingmachine.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -43,6 +44,10 @@ public class TransactionServiceImpl implements TransactionService{
 
         UserEnt user = userService.getUser(depositReqDto.getUserId());
 
+        if (!user.getRole().contains("BUYER")){
+            throw new UserException(ErrorCode.INVALID_ROLE_BUYER);
+        }
+
         if (!coinTypes.contains(depositReqDto.getCoinType())){
             throw new TransactionException(ErrorCode.INVALID_COIN_TYPE);
         }
@@ -53,7 +58,7 @@ public class TransactionServiceImpl implements TransactionService{
 
         logger.info("User: " + user.getUsername() + " new balance: " + user.getDeposit());
 
-        Transaction transaction = new Transaction();
+        TransactionEnt transaction = new TransactionEnt();
         transaction.setUserId(user.getId());
         transaction.setTransactionType("DEPOSIT");
         transaction.setTransactionAmount((Integer.parseInt(depositReqDto.getCoinType())));
@@ -81,6 +86,10 @@ public class TransactionServiceImpl implements TransactionService{
         returnTypes.add("5");
 
         UserEnt user = userService.getUser(buyReqDto.getUserId());
+
+        if (!user.getRole().contains("BUYER")){
+            throw new UserException(ErrorCode.INVALID_ROLE_BUYER);
+        }
 
         Product product = productService.getProduct(buyReqDto.getProductId());
 

@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
@@ -59,9 +60,9 @@ public class UserServiceImpl implements UserService{
         logger.info("Add new user " + userReqDto.getUsername() + ", " + userReqDto.getRole().toString());
         Optional<UserEnt> users = userRepository.findByUsername(userReqDto.getUsername());
 
-        for(Role role:userReqDto.getRole()){
-            role.setName(role.getName().toUpperCase());
-            if(role.getName() != "SELLER" || role.getName() != "BUYER"){
+        for(String role:userReqDto.getRole().split(",")){
+            role = role.toUpperCase();
+            if(role != "SELLER" || role != "BUYER"){
                 throw new UserException(ErrorCode.INVALID_ROLE);
             }
             if(users.isPresent() && users.get().getRole().contains(role)){
@@ -89,9 +90,9 @@ public class UserServiceImpl implements UserService{
 
         logger.info("Update user role and/or password " + user.getUsername());
 
-        for(Role role:userUpdateReqDto.getRole()){
-            role.setName(role.getName().toUpperCase());
-            if(role.getName() != "SELLER" || role.getName() != "BUYER"){
+        for(String role:userUpdateReqDto.getRole().split(",")){
+            role = role.toUpperCase();
+            if(role != "SELLER" || role != "BUYER"){
                 throw new UserException(ErrorCode.INVALID_ROLE);
             }
         }
@@ -115,11 +116,13 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<Role> insertRoles() {
+    public String insertRoles() {
         Role role1 = new Role();
         role1.setName("SELLER");
         Role role2 = new Role();
         role2.setName("BUYER");
+
+        String roles1 = role1.getName() + "," + role2.getName();
 
         Optional<Role> roleCheck1 = roleRepository.findByName("SELLER");
         Optional<Role> roleCheck2 = roleRepository.findByName("BUYER");
@@ -131,6 +134,14 @@ public class UserServiceImpl implements UserService{
         }
 
         List<Role> roles = roleRepository.findAll();
-        return roles;
+
+        UserEnt user = new UserEnt();
+        user.setUsername("sinanmutlu1");
+        user.setPassword("sinanmutlu!_*123");
+        user.setDeposit(500);
+        user.setRole(roles1);
+        UserDto usr= userMapper.toDto(userRepository.save(user));
+
+        return roles1 + user.getUsername();
     }
 }

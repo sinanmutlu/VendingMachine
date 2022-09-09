@@ -18,6 +18,7 @@ public enum ErrorCode {
     INVALID_DEPOSIT(902, "Deposit should be multiples of 5", HttpStatus.BAD_REQUEST),
     INVALID_ROLE(902, "Role should be seller or buyer", HttpStatus.BAD_REQUEST),
     USER_NOT_FOUND(903, "User was not found", HttpStatus.BAD_REQUEST),
+    INVALID_ROLE_BUYER(904, "Role should be  buyer", HttpStatus.BAD_REQUEST),
     INVALID_COIN_TYPE(701, "Coin type should be one of (5, 10, 20, 50, 100)", HttpStatus.BAD_REQUEST),
     INVALID_COIN_NUMBER(702, "Coin number should be more than 0", HttpStatus.BAD_REQUEST),
     NOT_ENOUGH_DEPOSIT(703, "Not enough balance", HttpStatus.BAD_REQUEST),

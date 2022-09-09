@@ -4,10 +4,7 @@ package com.sinanmutlu.vendingmachine.service;
 import com.sinanmutlu.vendingmachine.dto.UserDto;
 import com.sinanmutlu.vendingmachine.dto.UserReqDto;
 import com.sinanmutlu.vendingmachine.dto.UserUpdateReqDto;
-import com.sinanmutlu.vendingmachine.entity.Role;
 import com.sinanmutlu.vendingmachine.entity.UserEnt;
-
-import java.util.List;
 
 public interface UserService {
 
@@ -22,5 +19,5 @@ public interface UserService {
 
     void removeUser(Long userId);
 
-    List<Role> insertRoles();
+    String insertRoles();
 }
