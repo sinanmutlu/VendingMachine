@@ -7,12 +7,13 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Table
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Builder
-public class User {
+public class UserEnt {
     @Id
     @GeneratedValue
     private Long id;

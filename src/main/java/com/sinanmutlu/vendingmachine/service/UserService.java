@@ -5,17 +5,17 @@ import com.sinanmutlu.vendingmachine.dto.UserDto;
 import com.sinanmutlu.vendingmachine.dto.UserReqDto;
 import com.sinanmutlu.vendingmachine.dto.UserUpdateReqDto;
 import com.sinanmutlu.vendingmachine.entity.Role;
-import com.sinanmutlu.vendingmachine.entity.User;
+import com.sinanmutlu.vendingmachine.entity.UserEnt;
 
 import java.util.List;
 
 public interface UserService {
 
-    User getUser(Long userId);
+    UserEnt getUser(Long userId);
 
     UserDto getUserInfo(Long userId);
 
-    void updateUser(User user);
+    void updateUser(UserEnt user);
     UserDto addUser(UserReqDto userReqDto);
 
     UserDto updateUser(UserUpdateReqDto userUpdateReqDto);

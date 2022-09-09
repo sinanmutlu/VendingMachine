@@ -4,7 +4,7 @@ package com.sinanmutlu.vendingmachine.service;
 import com.sinanmutlu.vendingmachine.dto.*;
 import com.sinanmutlu.vendingmachine.entity.Product;
 import com.sinanmutlu.vendingmachine.entity.Transaction;
-import com.sinanmutlu.vendingmachine.entity.User;
+import com.sinanmutlu.vendingmachine.entity.UserEnt;
 import com.sinanmutlu.vendingmachine.exception.ErrorCode;
 import com.sinanmutlu.vendingmachine.exception.TransactionException;
 import com.sinanmutlu.vendingmachine.repository.TransactionRepository;
@@ -41,7 +41,7 @@ public class TransactionServiceImpl implements TransactionService{
         coinTypes.add("50");
         coinTypes.add("100");
 
-        User user = userService.getUser(depositReqDto.getUserId());
+        UserEnt user = userService.getUser(depositReqDto.getUserId());
 
         if (!coinTypes.contains(depositReqDto.getCoinType())){
             throw new TransactionException(ErrorCode.INVALID_COIN_TYPE);
@@ -80,7 +80,7 @@ public class TransactionServiceImpl implements TransactionService{
         returnTypes.add("10");
         returnTypes.add("5");
 
-        User user = userService.getUser(buyReqDto.getUserId());
+        UserEnt user = userService.getUser(buyReqDto.getUserId());
 
         Product product = productService.getProduct(buyReqDto.getProductId());
 
@@ -122,7 +122,7 @@ public class TransactionServiceImpl implements TransactionService{
     @Override
     public DepositResDto resetBalance(Long userId) {
 
-        User user = userService.getUser(userId);
+        UserEnt user = userService.getUser(userId);
 
         user.setDeposit(0);
 

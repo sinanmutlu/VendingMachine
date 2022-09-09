@@ -1,0 +1,18 @@
+services:
+  vending-db:
+    restart: always
+    container_name: vending-db
+    image: 'postgres:11.8'
+    networks:
+      - spring-network
+    environment:
+      POSTGRES_DB: vending_db
+      POSTGRES_USER: v_user
+      POSTGRES_PASSWORD: vending1
+    volumes:
+      - ./database-data:/var/lib/postgresql/data/
+    ports:
+      - "5437:5432"
+networks:
+  spring-network:
+    external: true
