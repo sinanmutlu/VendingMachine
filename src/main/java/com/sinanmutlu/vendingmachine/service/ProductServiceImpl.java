@@ -52,7 +52,7 @@ public class ProductServiceImpl implements ProductService{
             throw new ProductException(ErrorCode.INVALID_PRODUCT_COST);
         }
 
-        userRepository.findByIdAndRole(productReqDto.getSellerId(), roleRepository.findByName("SELLER").get()).orElseThrow(() -> new ProductException(ErrorCode.SELLER_NOT_FOUND));
+        userRepository.findByIdAndRoles(productReqDto.getSellerId(), "SELLER").orElseThrow(() -> new ProductException(ErrorCode.SELLER_NOT_FOUND));
 
         Optional<Product> products = productRepository.findByProductName(productReqDto.getProductName());
 

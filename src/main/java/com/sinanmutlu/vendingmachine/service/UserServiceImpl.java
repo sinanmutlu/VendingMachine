@@ -5,7 +5,7 @@ import com.sinanmutlu.vendingmachine.dto.UserDto;
 import com.sinanmutlu.vendingmachine.dto.UserReqDto;
 import com.sinanmutlu.vendingmachine.dto.UserUpdateReqDto;
 import com.sinanmutlu.vendingmachine.entity.Role;
-import com.sinanmutlu.vendingmachine.entity.User;
+import com.sinanmutlu.vendingmachine.entity.UserEnt;
 import com.sinanmutlu.vendingmachine.exception.ErrorCode;
 import com.sinanmutlu.vendingmachine.exception.UserException;
 import com.sinanmutlu.vendingmachine.mapper.UserMapper;
@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService{
     private final RoleRepository roleRepository;
 
     @Override
-    public User getUser(Long userId) {
+    public UserEnt getUser(Long userId) {
         return userRepository.findById(userId).orElseThrow(() -> new UserException(ErrorCode.USER_NOT_FOUND));
     }
 
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService{
     public UserDto getUserInfo(Long userId) {
 
         logger.info("getUserInfo " + userId.toString());
-        User user = userRepository.findById(userId).orElseThrow(() -> new UserException(ErrorCode.USER_NOT_FOUND));
+        UserEnt user = userRepository.findById(userId).orElseThrow(() -> new UserException(ErrorCode.USER_NOT_FOUND));
 
         UserDto userDto = userMapper.toDto(user);
         //To not show password in response (it can be masked if required)
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void updateUser(User user) {
+    public void updateUser(UserEnt user) {
         userRepository.save(user);
     }
 
@@ -56,15 +56,16 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserDto addUser(UserReqDto userReqDto) {
 
-        logger.info("Add new user " + userReqDto.getUsername() + ", " + userReqDto.getRole().toString());
-        Optional<User> users = userRepository.findByUsername(userReqDto.getUsername());
+        logger.info("Add new user " + userReqDto.getUsername() + ", " + userReqDto.getRoles());
+        Optional<UserEnt> users = userRepository.findByUsername(userReqDto.getUsername());
 
-        for(Role role:userReqDto.getRole()){
-            role.setName(role.getName().toUpperCase());
-            if(role.getName() != "SELLER" || role.getName() != "BUYER"){
+        for(String role:userReqDto.getRoles().split(",")){
+            role.toUpperCase();
+
+            if(!role.contains("SELLER") && !role.contains("BUYER")){
                 throw new UserException(ErrorCode.INVALID_ROLE);
             }
-            if(users.isPresent() && users.get().getRole().contains(role)){
+            if(users.isPresent() && users.get().getRoles().contains(role)){
                 throw new UserException(ErrorCode.USER_ALREADY_EXIST);
             }
         }
@@ -74,7 +75,7 @@ public class UserServiceImpl implements UserService{
             throw new UserException(ErrorCode.INVALID_DEPOSIT);
         }
 
-        User user = userMapper.toEntity(userReqDto);
+        UserEnt user = userMapper.toEntity(userReqDto);
 
         return userMapper.toDto(userRepository.save(user));
     }
@@ -85,18 +86,17 @@ public class UserServiceImpl implements UserService{
 
         logger.info("Update user role and/or password " + userUpdateReqDto.getId());
 
-        User user = userRepository.findById(userUpdateReqDto.getId()).orElseThrow(() -> new UserException(ErrorCode.USER_NOT_FOUND));
+        UserEnt user = userRepository.findById(userUpdateReqDto.getId()).orElseThrow(() -> new UserException(ErrorCode.USER_NOT_FOUND));
 
         logger.info("Update user role and/or password " + user.getUsername());
 
-        for(Role role:userUpdateReqDto.getRole()){
-            role.setName(role.getName().toUpperCase());
-            if(role.getName() != "SELLER" || role.getName() != "BUYER"){
-                throw new UserException(ErrorCode.INVALID_ROLE);
-            }
+       String role = userUpdateReqDto.getRoles();
+        role.toUpperCase();
+        if(!role.contains("SELLER") && !role.contains("BUYER")){
+            throw new UserException(ErrorCode.INVALID_ROLE);
         }
 
-        user.setRole(userUpdateReqDto.getRole());
+        user.setRoles(userUpdateReqDto.getRoles());
 
         //TODO check if password is changed or not, if so logout
         user.setPassword(userUpdateReqDto.getPassword());
@@ -107,7 +107,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public void removeUser(Long userId) {
 
-        User user = userRepository.findById(userId).orElseThrow(() -> new UserException(ErrorCode.USER_NOT_FOUND));
+        UserEnt user = userRepository.findById(userId).orElseThrow(() -> new UserException(ErrorCode.USER_NOT_FOUND));
 
         userRepository.delete(user);
 

@@ -2,9 +2,7 @@ package com.sinanmutlu.vendingmachine.exception;
 
 public class UserException extends RuntimeException {
 
-    /**
-     *
-     */
+
     private static final long serialVersionUID = 1L;
 
     private ErrorCode errorCode;

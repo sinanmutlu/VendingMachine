@@ -15,5 +15,5 @@ public class UserUpdateReqDto {
 
     private Long id;
     private String password;
-    private List<Role> role;
+    private String roles;
 }

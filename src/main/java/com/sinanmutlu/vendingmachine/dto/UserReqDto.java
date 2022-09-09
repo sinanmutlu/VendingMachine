@@ -16,5 +16,5 @@ public class UserReqDto {
     private String username;
     private String password;
     private int deposit;
-    private List<Role> role;
+    private String roles;
 }
