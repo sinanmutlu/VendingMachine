@@ -34,13 +34,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests().anyRequest().fullyAuthenticated().and().httpBasic();
-        http.authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/user/add").permitAll()
-                .antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
-                .anyRequest().fullyAuthenticated()
-                .and()
-                .httpBasic();
+    //    http.authorizeRequests().anyRequest().fullyAuthenticated().and().httpBasic();
+        http.authorizeRequests().anyRequest().permitAll();
+    //   http.authorizeRequests()
+    //           .antMatchers(HttpMethod.POST,"/user/add").permitAll()
+    //           .antMatchers(HttpMethod.POST, "/authenticate").permitAll()
+    //           .antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
+    //           .anyRequest().fullyAuthenticated()
+    //           .and()
+    //           .httpBasic();
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.cors();
@@ -49,8 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(HttpMethod.GET,"/info")
-                .antMatchers(HttpMethod.POST, "/authenticate")
+        web.ignoring().antMatchers(HttpMethod.POST, "/authenticate")
                 .antMatchers(HttpMethod.GET, "/swagger-ui.html");
     }
 
