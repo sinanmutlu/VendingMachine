@@ -30,5 +30,6 @@ CREATE TABLE user_ent
     username VARCHAR(255),
     password VARCHAR(255),
     deposit  INT    NOT NULL,
+    role     VARCHAR(255),
     CONSTRAINT pk_userent PRIMARY KEY (id)
 );
