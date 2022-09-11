@@ -3,7 +3,6 @@ package com.sinanmutlu.vendingmachine.controller;
 import com.sinanmutlu.vendingmachine.dto.UserDto;
 import com.sinanmutlu.vendingmachine.dto.UserReqDto;
 import com.sinanmutlu.vendingmachine.dto.UserUpdateReqDto;
-import com.sinanmutlu.vendingmachine.entity.Role;
 import com.sinanmutlu.vendingmachine.service.UserService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -12,8 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 
 @RestController
@@ -56,9 +53,4 @@ public class UserController {
         return new ResponseEntity<>(userId, HttpStatus.OK);
     }
 
-    @GetMapping("/insertRoles")
-    public ResponseEntity<List<Role>> insertRoles() {
-
-        return ResponseEntity.ok(userService.insertRoles());
-    }
 }

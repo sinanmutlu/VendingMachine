@@ -13,6 +13,8 @@ import java.util.List;
 public interface ProductMapper {
 
     ProductDto toDto(Product product);
+
+    ProductReqDto toReqDto(Product product);
     Product toEntity(ProductDto productDto);
     Product toEntity(ProductReqDto productReqDto);
     List<ProductDto> toDtos(List<Product> productList);

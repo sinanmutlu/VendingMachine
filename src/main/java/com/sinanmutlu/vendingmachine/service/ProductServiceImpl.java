@@ -8,7 +8,6 @@ import com.sinanmutlu.vendingmachine.exception.ProductException;
 import com.sinanmutlu.vendingmachine.exception.UserException;
 import com.sinanmutlu.vendingmachine.mapper.ProductMapper;
 import com.sinanmutlu.vendingmachine.repository.ProductRepository;
-import com.sinanmutlu.vendingmachine.repository.RoleRepository;
 import com.sinanmutlu.vendingmachine.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -25,7 +24,6 @@ public class ProductServiceImpl implements ProductService{
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
     private final ProductMapper productMapper;
     @Override
     public List<ProductDto> getAllProducts() {

@@ -9,7 +9,7 @@ import org.springframework.web.context.request.WebRequest;
 public class ProductExceptionHandler {
 
     @ExceptionHandler(ProductException.class)
-    public final ResponseEntity<ProductException> handleException(ProductException ex, WebRequest request) {
+    public final ResponseEntity<ProductException> handleException(ProductException ex) {
         return prepareResponse(ex);
     }
 

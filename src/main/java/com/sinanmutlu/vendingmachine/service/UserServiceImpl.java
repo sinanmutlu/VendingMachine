@@ -4,19 +4,16 @@ package com.sinanmutlu.vendingmachine.service;
 import com.sinanmutlu.vendingmachine.dto.UserDto;
 import com.sinanmutlu.vendingmachine.dto.UserReqDto;
 import com.sinanmutlu.vendingmachine.dto.UserUpdateReqDto;
-import com.sinanmutlu.vendingmachine.entity.Role;
 import com.sinanmutlu.vendingmachine.entity.UserEnt;
 import com.sinanmutlu.vendingmachine.exception.ErrorCode;
 import com.sinanmutlu.vendingmachine.exception.UserException;
 import com.sinanmutlu.vendingmachine.mapper.UserMapper;
-import com.sinanmutlu.vendingmachine.repository.RoleRepository;
 import com.sinanmutlu.vendingmachine.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,7 +23,6 @@ public class UserServiceImpl implements UserService{
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private final RoleRepository roleRepository;
 
     @Override
     public UserEnt getUser(Long userId) {
@@ -114,23 +110,4 @@ public class UserServiceImpl implements UserService{
         logger.info("User " + userId + " is removed");
     }
 
-    @Override
-    public List<Role> insertRoles() {
-        Role role1 = new Role();
-        role1.setName("SELLER");
-        Role role2 = new Role();
-        role2.setName("BUYER");
-
-        Optional<Role> roleCheck1 = roleRepository.findByName("SELLER");
-        Optional<Role> roleCheck2 = roleRepository.findByName("BUYER");
-        if (!roleCheck1.isPresent()){
-            roleRepository.save(role1);
-        }
-        if (!roleCheck2.isPresent()){
-            roleRepository.save(role2);
-        }
-
-        List<Role> roles = roleRepository.findAll();
-        return roles;
-    }
 }

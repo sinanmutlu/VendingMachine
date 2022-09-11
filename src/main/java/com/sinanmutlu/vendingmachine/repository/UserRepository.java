@@ -1,6 +1,5 @@
 package com.sinanmutlu.vendingmachine.repository;
 
-import com.sinanmutlu.vendingmachine.entity.Role;
 import com.sinanmutlu.vendingmachine.entity.UserEnt;
 import org.springframework.data.jpa.repository.JpaRepository;
 

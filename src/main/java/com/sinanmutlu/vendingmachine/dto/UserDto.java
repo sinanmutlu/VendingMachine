@@ -1,9 +1,6 @@
 package com.sinanmutlu.vendingmachine.dto;
 
-import com.sinanmutlu.vendingmachine.entity.Role;
 import lombok.*;
-
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor

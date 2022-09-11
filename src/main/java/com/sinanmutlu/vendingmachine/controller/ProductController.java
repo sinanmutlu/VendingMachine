@@ -33,7 +33,7 @@ public class ProductController {
     public ResponseEntity<ProductDto> addProduct(@Validated @RequestBody ProductReqDto productReqDto) {
 
         logger.info("Adding new product with  " + productReqDto.toString() );
-        return new ResponseEntity<ProductDto>(productService.addProduct(productReqDto), HttpStatus.OK);
+        return new ResponseEntity<>(productService.addProduct(productReqDto), HttpStatus.OK);
 
     }
 
@@ -41,7 +41,7 @@ public class ProductController {
     public ResponseEntity<ProductDto> updateProduct(@Validated @RequestBody ProductDto productDto) {
 
         logger.info("Update product " );
-        return new ResponseEntity<ProductDto>(productService.updateProduct(productDto), HttpStatus.OK);
+        return new ResponseEntity<>(productService.updateProduct(productDto), HttpStatus.OK);
 
     }
 
