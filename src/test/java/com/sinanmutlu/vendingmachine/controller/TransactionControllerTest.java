@@ -65,6 +65,9 @@ class TransactionControllerTest {
     void tearDown() {
         depositResDto = null;
         depositReqDto = null;
+        changes.clear();
+        buyResDto = null;
+        buyReqDto = null;
     }
 
     @Test
