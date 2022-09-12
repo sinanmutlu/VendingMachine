@@ -33,7 +33,7 @@ public class ProductController {
     public ResponseEntity<ProductDto> addProduct(@Validated @RequestBody ProductReqDto productReqDto) {
 
         logger.info("Adding new product with  " + productReqDto.toString() );
-        return new ResponseEntity<>(productService.addProduct(productReqDto), HttpStatus.OK);
+        return ResponseEntity.ok(productService.addProduct(productReqDto));
 
     }
 

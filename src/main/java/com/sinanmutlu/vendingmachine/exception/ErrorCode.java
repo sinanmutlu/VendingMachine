@@ -14,6 +14,7 @@ public enum ErrorCode {
     INVALID_PRODUCT_NAME(807, "Product name is in use", HttpStatus.BAD_REQUEST),
 
     INVALID_SELLERID(808, "SellerId can not be changed", HttpStatus.BAD_REQUEST),
+    BUYER_NOT_FOUND(809, "Buyer was not found", HttpStatus.BAD_REQUEST),
     USER_ALREADY_EXIST(901, "User already exist", HttpStatus.BAD_REQUEST),
     INVALID_DEPOSIT(902, "Deposit should be multiples of 5", HttpStatus.BAD_REQUEST),
     INVALID_ROLE(902, "Role should be seller or buyer", HttpStatus.BAD_REQUEST),

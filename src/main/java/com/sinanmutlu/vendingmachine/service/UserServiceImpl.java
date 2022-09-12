@@ -44,8 +44,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void updateUser(UserEnt user) {
-        userRepository.save(user);
+    public UserEnt updateUser(UserEnt user) {
+        return userRepository.save(user);
     }
 
     //TODO user id auth tan alıp kontrol et (auth olan endpointler için)

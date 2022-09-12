@@ -14,7 +14,7 @@ public interface UserService {
 
     UserDto getUserInfo(Long userId);
 
-    void updateUser(UserEnt user);
+    UserEnt updateUser(UserEnt user);
     UserDto addUser(UserReqDto userReqDto);
 
     UserDto updateUser(UserUpdateReqDto userUpdateReqDto);

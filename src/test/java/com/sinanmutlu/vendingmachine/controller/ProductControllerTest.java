@@ -22,13 +22,17 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import static org.mockito.ArgumentMatchers.any;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import static org.hamcrest.Matchers.*;
+
+
+
 
 class ProductControllerTest {
 
@@ -85,7 +89,7 @@ class ProductControllerTest {
         product1 = product2 = null;
         productList = null;
         productDtoList = null;
-        //product = null;
+        product = null;
         productReqDto = null;
     }
 
@@ -97,14 +101,16 @@ class ProductControllerTest {
                 .get("/products/all")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
+                .andDo(print())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[1].productName", is("su")));
     }
 
+
     @Test
     void addProduct() throws Exception{
 
-        Mockito.when(productService.addProduct(productReqDto)).thenReturn(product);
+        Mockito.when(productService.addProduct(any())).thenReturn(product);
 
         String content = objectWriter.writeValueAsString(productReqDto);
 
@@ -115,6 +121,7 @@ class ProductControllerTest {
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())
+                .andDo(print())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", notNullValue()))
                 .andExpect(jsonPath("$.productName", is("product3")));
     }

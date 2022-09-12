@@ -6,6 +6,7 @@ import com.sinanmutlu.vendingmachine.entity.Product;
 import com.sinanmutlu.vendingmachine.entity.Transaction;
 import com.sinanmutlu.vendingmachine.entity.UserEnt;
 import com.sinanmutlu.vendingmachine.exception.ErrorCode;
+import com.sinanmutlu.vendingmachine.exception.ProductException;
 import com.sinanmutlu.vendingmachine.exception.TransactionException;
 import com.sinanmutlu.vendingmachine.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
@@ -82,6 +83,10 @@ public class TransactionServiceImpl implements TransactionService{
 
         UserEnt user = userService.getUser(buyReqDto.getUserId());
 
+        if (!user.getRoles().contains("BUYER")){
+            throw new ProductException(ErrorCode.BUYER_NOT_FOUND);
+        }
+
         Product product = productService.getProduct(buyReqDto.getProductId());
 
         Map<String,Integer> changes = new HashMap<String, Integer>();
@@ -123,6 +128,10 @@ public class TransactionServiceImpl implements TransactionService{
     public DepositResDto resetBalance(Long userId) {
 
         UserEnt user = userService.getUser(userId);
+
+        if (!user.getRoles().contains("BUYER")){
+            throw new ProductException(ErrorCode.BUYER_NOT_FOUND);
+        }
 
         user.setDeposit(0);
 

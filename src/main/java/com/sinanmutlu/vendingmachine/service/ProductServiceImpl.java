@@ -3,6 +3,7 @@ package com.sinanmutlu.vendingmachine.service;
 import com.sinanmutlu.vendingmachine.dto.ProductDto;
 import com.sinanmutlu.vendingmachine.dto.ProductReqDto;
 import com.sinanmutlu.vendingmachine.entity.Product;
+import com.sinanmutlu.vendingmachine.entity.UserEnt;
 import com.sinanmutlu.vendingmachine.exception.ErrorCode;
 import com.sinanmutlu.vendingmachine.exception.ProductException;
 import com.sinanmutlu.vendingmachine.exception.UserException;
@@ -50,7 +51,11 @@ public class ProductServiceImpl implements ProductService{
             throw new ProductException(ErrorCode.INVALID_PRODUCT_COST);
         }
 
-        userRepository.findByIdAndRoles(productReqDto.getSellerId(), "SELLER").orElseThrow(() -> new ProductException(ErrorCode.SELLER_NOT_FOUND));
+        UserEnt userEnt = userRepository.findById(productReqDto.getSellerId()).orElseThrow(() -> new ProductException(ErrorCode.SELLER_NOT_FOUND));
+
+        if (!userEnt.getRoles().contains("SELLER")){
+            throw new ProductException(ErrorCode.SELLER_NOT_FOUND);
+        }
 
         Optional<Product> products = productRepository.findByProductName(productReqDto.getProductName());
 
