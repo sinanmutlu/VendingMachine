@@ -19,5 +19,6 @@ public class UserEnt {
     private String password;
     private int deposit;
     private String roles; //can be enum
+    //TODO add createdDate and updatedDate generated
 
 }

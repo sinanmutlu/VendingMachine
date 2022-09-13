@@ -18,4 +18,5 @@ public class Transaction {
     private String transactionType;
     private Long userId;
     private int transactionAmount;
+    //TODO add createdDate and updatedDate generated
 }

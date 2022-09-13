@@ -19,4 +19,5 @@ public class Product {
     private int cost;
     private String productName;
     private Long sellerId;
+    //TODO add createdDate and updatedDate generated
 }
